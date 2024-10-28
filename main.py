@@ -1,48 +1,48 @@
 import polars as pl
 import datetime as dt
-import pandas as pd
 import duckdb
 import random
 import time
 
+# Extract
 # 발생 시간, 이름, 금액 생성 method
 def make_data():
 
     rand = random.randrange(0,4)
+    rand2 = random.randrange(0,10)
     name_list = ["Alice Archer", "Ben Brown", "Chloe Cooper", "Daniel Donovan"]
     di = {  
             "date" : dt.datetime.now(),
             "name": name_list[rand],
-            "amount": rand * 10000
+            "amount": rand2 * 10000
         }
     return di
 
+# Transfrom
+def transform_data(n:int):
+    """
+    n : 데이터 몇개 생성할건지
+    """
+    # polars
+    for i in range(0, n): 
+        # 
+        df = pl.DataFrame(make_data())
+        save_data(df)
+
+def save_data(df: pl.DataFrame):
+    duckdb.sql("INSERT INTO Test SELECT * FROM df")
+    pass
+
+def get_data():
+    result = duckdb.sql("SELECT * FROM Test")
+    return result
+
+def create_table():
+    df = pl.DataFrame(make_data())
+    duckdb.sql("CREATE TABLE Test AS SELECT * FROM df")
+
 if __name__ == "__main__":
 
-    start2 = time.time()
-
-    for i in range(0, 10000):
-
-        # pandas
-        df2 = pd.DataFrame([make_data()])
-        result = duckdb.sql("SELECT * FROM df2").show()
-        #print(result)
-
-    pt = time.time()-start2
-    #print(f"pandas :::: {time.time()-start2:.4f} sec")
-
-
-    # polars
-    start = time.time()
-    for i in range(0, 10000):
-
-        df = pl.DataFrame(make_data())
-        result = duckdb.sql("SELECT * FROM df").show()
-        #print(result)
-
-    print(f"polars :::: {time.time()-start:.4f} sec")
-    print(f"pandas :::: {pt:.4f} sec")
-    
-    # 만건 기준
-    # polars :::: 6.3179 sec
-    # pandas :::: 7.0262 sec
+    create_table()
+    transform_data(10)
+    print(get_data())

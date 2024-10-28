@@ -25,6 +25,7 @@ if __name__ == "__main__":
     start = time.time()
     for i in range(0, 10000):
         df = pl.DataFrame(make_data())
+        df.drop('amount')
 
     print(f"polars :::: {time.time()-start:.4f} sec")
 
@@ -32,6 +33,7 @@ if __name__ == "__main__":
     start2 = time.time()
     for i in range(0, 10000):
         df2 = pd.DataFrame([make_data()])
+        df2.drop('amount', axis=True)
 
     pt = time.time()-start2
     print(f"pandas :::: {time.time()-start2:.4f} sec")
