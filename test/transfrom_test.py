@@ -19,8 +19,6 @@ def make_data():
 
 if __name__ == "__main__":
 
-
-
     # polars
     start = time.time()
     for i in range(0, 10000):
@@ -42,7 +40,7 @@ if __name__ == "__main__":
     결론
 
     10000건 기준
-    polars :::: 0.4949 sec
-    pandas :::: 1.1726 sec
-    보통 pandas 호출만 했을 뿐인데 TPS가 반토막 나는 이슈가 있는데 polars가 2배 빠름
+    polars :::: 0.5897 sec
+    pandas :::: 2.3992 sec
+    데이터를 변형할 때 성능도 polars의 압승 4배 차이
     """

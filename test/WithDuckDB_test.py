@@ -59,7 +59,7 @@ def main():
     pandas :::: 0.0084 sec
     
     duckdb 와 같이 쓰면 판다스가 더 빠름
-    
+    아마 duckdb 측에서 최적화를 한걸로 예상함
     """
 if __name__ == "__main__":
     main()
