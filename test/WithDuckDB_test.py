@@ -5,6 +5,8 @@ import random
 import time
 import pandas as pd
 
+con = duckdb.connect()
+
 # Extract
 # 발생 시간, 이름, 금액 생성 method
 def make_data():
@@ -60,6 +62,8 @@ def main():
     
     duckdb 와 같이 쓰면 판다스가 더 빠름
     아마 duckdb 측에서 최적화를 한걸로 예상함
+
+    결론 duckdb 와의 연동은 pandas 사용
     """
 if __name__ == "__main__":
     main()
